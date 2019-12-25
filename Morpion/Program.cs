@@ -8,7 +8,7 @@ namespace Morpion
         {
             Board board = new Board(3, 'X', 'O', false);
             board.PrintBoard();
-            
+            Console.WriteLine(board.IsWon());
         }
     }
 }    

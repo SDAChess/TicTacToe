@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Morpion
 {
@@ -82,15 +83,63 @@ namespace Morpion
             }
             Console.WriteLine(verticalSeparator);
         }
-        
 
+        public bool IsWon()
+        {
+            bool returnValue = true;
+            for (int i = 0; i < size - 1; i++)
+            {
+                for (int j = 0; j < size - 1; j++)
+                {
+                    if (board[i, j] != board[i, j+1] || board[i, j] == 0)
+                    {
+                        returnValue = false;
+                    }
+                    else
+                    {
+                        returnValue = true;
+                    }
+                }
+            }
+
+            if (returnValue)
+            {
+                return true;
+            }
+            
+            for (int i = 0; i < size - 1; i++)
+            {
+                for (int j = 0; j < size - 1; j++)
+                {
+                    if (board[j, i] != board[j + 1, i] || board[j, i] == 0)
+                    {
+                        returnValue = false;
+                    }
+                    else
+                    {
+                        returnValue = true;
+                    }
+                }
+            }
+            if (returnValue)
+            {
+                return true;
+            }
+            for (int i = 0; i < size - 1; i++)
+            {
+                if (board[i, i] != board[i+1, i+1] || board[i, i] == 0)
+                {
+                    returnValue = false;
+                }
+                else
+                {
+                    returnValue = true;
+                }
+            }
+            return returnValue;
+        }
         #endregion
 
-        #region Getters and Setters
-
-        
-
-        #endregion
 
 
     }
