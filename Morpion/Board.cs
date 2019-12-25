@@ -8,9 +8,9 @@ namespace Morpion
     {
         #region Attributes
 
-        private int size { get;  }
-        private char player1 { get; }
-        private char player2 { get; }
+        private int size; 
+        public char Player1 { get; }
+        public char Player2 { get; }
         private int[,] board { get; }
 
         private bool random;
@@ -22,8 +22,8 @@ namespace Morpion
         public Board(int size, char player1, char player2, bool random)
         {
             this.size = size;
-            this.player1 = player1;
-            this.player2 = player2;
+            this.Player1 = player1;
+            this.Player2 = player2;
             board = new int[size,size];
             for (int i = 0; i < size; i++)
             {
@@ -46,7 +46,11 @@ namespace Morpion
         #endregion
 
         #region Methods
-
+        
+        public void PutCell(char player, int x, int y)
+        {
+            board[x, y] = player == Player1 ? 1 : 2;
+        }
         public void PrintBoard()
         {
             var separator = " ¦ ";
@@ -66,10 +70,10 @@ namespace Morpion
                             line += " ";
                             break;
                         case 1:
-                            line += player1;
+                            line += Player1;
                             break;
                         case 2:
-                            line += player2;
+                            line += Player2;
                             break;
                     }
 
