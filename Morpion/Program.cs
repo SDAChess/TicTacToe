@@ -6,7 +6,9 @@ namespace Morpion
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Board board = new Board(3, 'X', 'O', false);
+            board.PrintBoard();
+            
         }
     }
 }    
