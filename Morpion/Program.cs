@@ -6,23 +6,46 @@ namespace Morpion
 {
     class Program
     {
-        private static char currentPlayer;
         static void Main(string[] args)
         {
-            Board board = new Board(3, 'X', 'O', false);
-            currentPlayer = board.Player1;
-            while (!board.IsWon())
+            Board board = new Board(true);
+            bool executed = false;
+            do
             {
                 board.PrintBoard();
-                Console.WriteLine("X ?");
-                int x = Int32.Parse(Console.ReadLine());
-                Console.WriteLine("Y ?");
-                int y = Int32.Parse(Console.ReadLine());
-                board.PutCell(currentPlayer, x, y);
-                currentPlayer = currentPlayer == board.Player1 ? board.Player2 : board.Player1;
-            }
+                board.currentPlayer = board.currentPlayer == board.Player2 ? board.Player1 : board.Player2;
+                if (board.ai && board.currentPlayer == board.Player2)
+                {
+                    var (x, y) = board.ComputeBestMove();
+                    board.PutCell(board.Player2, x, y);
 
-            Console.WriteLine("Joueur " + currentPlayer + " a gagné la partie !");
+                }
+                else
+                {
+                    while (!executed)
+                    {
+                        Console.WriteLine("X ?");
+                        int x = Int32.Parse(Console.ReadLine());
+                        Console.WriteLine("Y ?");
+                        int y = Int32.Parse(Console.ReadLine());
+                        executed = board.PutCell(board.Player1, x, y);
+                    }
+
+                }
+                executed = false;
+
+            } while (board.IsWon() == 0 && !board.isFull());
+
+            if (board.isFull())
+            {
+                board.PrintBoard();
+                Console.WriteLine("Its a tie !!");
+            }
+            else
+            {
+                board.PrintBoard();
+                Console.WriteLine("Joueur " + board.currentPlayer + " a gagné la partie !");
+            }
         }
 
     }
